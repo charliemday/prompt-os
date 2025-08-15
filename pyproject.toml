@@ -1,0 +1,20 @@
+[project]
+name = "prompt-os"
+version = "0.1.0"
+description = "PromptOS is a central place to improve and refine your prompts"
+authors = [
+    {name = "charliemday",email = "45036245+charliemday@users.noreply.github.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11,<4.0"
+dependencies = [
+    "langchain>=0.1.0",
+    "langchain-openai>=0.1.0",
+    "python-dotenv>=1.0.0",
+    "yaspin (>=3.1.0,<4.0.0)",
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
