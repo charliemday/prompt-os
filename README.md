@@ -2,6 +2,8 @@
 
 A Python tool to grade your prompts in terms of Ambiguity, Contradictions, and Contextual Awareness.
 
+Access Playground: https://prompt-os-kt5fvqpe7ydshb5er2isht.streamlit.app/
+
 ## Features
 
 - **Prompt Grading**: Grade prompts on ambiguity, contradictions, and context (1-10 scale)
