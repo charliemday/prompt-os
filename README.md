@@ -6,6 +6,7 @@ A Python tool to grade your prompts in terms of Ambiguity, Contradictions, and C
 
 - **Prompt Grading**: Grade prompts on ambiguity, contradictions, and context (1-10 scale)
 - **CLI Interface**: Easy-to-use command-line tool
+- **Streamlit Web Interface**: Interactive web app for prompt grading
 - **Python API**: Simple import and use in your Python projects
 
 ## Installation
@@ -19,9 +20,18 @@ A Python tool to grade your prompts in terms of Ambiguity, Contradictions, and C
 
 2. **Install dependencies and CLI**:
 
+   **Using Poetry (recommended)**:
+
    ```bash
    poetry install
    poetry run pip install -e .
+   ```
+
+   **Using pip**:
+
+   ```bash
+   pip install -r requirements.txt
+   pip install -e .
    ```
 
 3. **Set up your OpenAI API key**:
@@ -78,6 +88,29 @@ print(f"Contradictions: {grading['contradictions']['score']}/10")
 print(f"Context: {grading['context']['score']}/10")
 ```
 
+### Streamlit Web Interface
+
+Launch the interactive web app for a beautiful, user-friendly interface:
+
+```bash
+# Method 1: Using the provided script
+python run_streamlit.py
+
+# Method 2: Direct streamlit command
+streamlit run streamlit_app.py
+```
+
+The Streamlit app provides:
+
+- **Interactive prompt input** with real-time grading
+- **Visual score cards** for easy interpretation
+- **Detailed explanations** for each grading criterion
+- **Model selection** (GPT-4o, GPT-4o-mini, GPT-4-turbo, GPT-3.5-turbo)
+- **Quick example prompts** to test the system
+- **Overall assessment** with weighted scoring
+- **Enhanced API key management** with validation and session state
+- **Responsive design** that works on desktop and mobile
+
 ### Example Script
 
 Run the included example:
@@ -85,6 +118,27 @@ Run the included example:
 ```bash
 python example.py
 ```
+
+### API Key Management
+
+The Streamlit app includes enhanced API key management:
+
+- **Prominent Input**: API key input is displayed at the top of the page when not configured
+- **Session State**: Your API key is remembered across interactions
+- **Validation**: Checks for valid API key format (starts with 'sk-')
+- **Multiple Sources**: Accepts key from environment variable or manual input
+- **Easy Management**: Change or remove your API key with one click
+- **Security**: API key is masked in the interface
+
+**Getting an API Key**:
+
+1. Visit [OpenAI Platform](https://platform.openai.com/api-keys)
+2. Create a new API key
+3. Copy the key (starts with 'sk-')
+4. Enter it in the Streamlit app or set as environment variable:
+   ```bash
+   export OPENAI_API_KEY="your-key-here"
+   ```
 
 ## Grading Criteria
 
@@ -98,7 +152,8 @@ python example.py
 
 - Python 3.11+
 - OpenAI API key
-- Poetry (for dependency management)
+- Poetry (for dependency management) or pip
+- Streamlit (for web interface)
 
 ## Environment Variables
 
