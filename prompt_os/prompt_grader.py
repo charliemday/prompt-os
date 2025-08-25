@@ -4,7 +4,6 @@ Prompt improvement functionality using LangChain
 
 import os
 from typing import Optional
-from datetime import datetime
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage
@@ -33,6 +32,11 @@ class GradingResult(BaseModel):
         ge=1,
         le=10,
     )
+    grammar_score: int = Field(
+        description="Grammar score (1-10 scale, 1=perfect grammar, 10=very poor grammar)",
+        ge=1,
+        le=10,
+    )
     ambiguity_explanation: str = Field(
         description="Detailed explanation for the ambiguity score",
     )
@@ -42,11 +46,45 @@ class GradingResult(BaseModel):
     context_explanation: str = Field(
         description="Detailed explanation for the context score",
     )
+    grammar_explanation: str = Field(
+        description="Detailed explanation for the grammar score",
+    )
 
     overall_assessment: str = Field(
         description="Brief overall assessment of the prompt quality",
         examples=["This is a well-structured prompt with good clarity and context"],
     )
+
+
+def calculate_overall_score(result: GradingResult) -> int:
+    """Calculate the overall score based on the scores of the individual categories"""
+
+    try:
+        # Take the reverse as we want low values to indicate a poor prompt
+        ambiguity_score = result.ambiguity_score
+        contradictions_score = result.contradictions_score
+        context_score = result.context_score
+        grammar_score = result.grammar_score
+
+        # Reverse the scores: high = good, low = bad, with 1 as the worst possible score
+        # Subtract from 11 so that a score of 10 (worst) becomes 1, and a score of 1 (best) becomes 10
+        reversed_ambiguity = 11 - ambiguity_score
+        reversed_contradictions = 11 - contradictions_score
+        reversed_context = 11 - context_score
+        reversed_grammar = 11 - grammar_score
+
+        return int(
+            (
+                reversed_ambiguity
+                + reversed_contradictions
+                + reversed_context
+                + reversed_grammar
+            )
+            // 4
+        )
+    except:
+        print("Error calculating overall score")
+        return 0
 
 
 def grade_prompt(prompt: str, model: str = "gpt-5") -> Optional[dict]:
@@ -101,6 +139,11 @@ def grade_prompt(prompt: str, model: str = "gpt-5") -> Optional[dict]:
                 "score": grading_result.context_score,
                 "explanation": grading_result.context_explanation,
             },
+            "grammar": {
+                "score": grading_result.grammar_score,
+                "explanation": grading_result.grammar_explanation,
+            },
+            "overall_score": calculate_overall_score(grading_result),
             "overall_assessment": grading_result.overall_assessment,
             "original_prompt": prompt,
         }

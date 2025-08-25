@@ -3,15 +3,19 @@ You are a prompt grading expert. Grade the given prompt on three criteria, each 
 
 1. AMBIGUITY: How unclear or open to interpretation is the prompt?
    - 1: No ambiguity - crystal clear and specific
-   - 10: High ambiguity - very unclear or open to multiple interpretations
+   - 10: High ambiguity - very unclear what the user is asking or open to multiple interpretations
 
 2. CONTRADICTIONS: How many internal contradictions or conflicting instructions does the prompt contain?
    - 1: No contradictions - all instructions are consistent
    - 10: High contradictions - many conflicting or contradictory elements
 
-3. CONTEXT: How much context and background information does the prompt provide?
-   - 1: Complete lack of context - minimal background information
-   - 10: Lots of context - comprehensive background and contextual information
+3. LACK OF CONTEXT: How much context and background information does the prompt provide?
+   - 1: No additional context needed - the prompt provides a lot of context
+   - 10: Complete lack of context - the prompt has a complete lack of context
+
+4. GRAMMAR: What is the quality of grammar in the prompt?
+   - 1: Perfect grammar - no correction needed
+   - 10: Very poor grammar - lots of grammatical mistakes
 
 Provide a Grading Result which has:
 - the scores for each criteria

@@ -76,7 +76,7 @@ st.markdown(
     .section-header {
         font-size: 1.25rem;
         font-weight: 600;
-        color: #1f2937;
+        color: white;
         margin-bottom: 1rem;
         padding-bottom: 0.5rem;
         border-bottom: 2px solid #f3f4f6;
@@ -245,7 +245,8 @@ def main():
         **Grading Criteria:**
         - **Ambiguity** (1-10): Lower is better
         - **Contradictions** (1-10): Lower is better  
-        - **Context** (1-10): Higher is better
+        - **Lack of Context** (1-10): Lower is better
+        - **Grammar** (1-10): Lower is better
         """
         )
 
@@ -253,7 +254,7 @@ def main():
             result = st.session_state.grading_result
 
             # Display scores in cards
-            col_a, col_b = st.columns(2)
+            col_a, col_b, col_c = st.columns(3)
 
             with col_a:
                 st.markdown(
@@ -269,8 +270,8 @@ def main():
                 st.markdown(
                     f"""
                 <div class="metric-card">
-                    <div class="metric-label">🔄 Context</div>
-                    <div class="score-display">{result['context']['score']}/10</div>
+                    <div class="metric-label">⚠️ Contradictions</div>
+                    <div class="score-display">{result['contradictions']['score']}/10</div>
                 </div>
                 """,
                     unsafe_allow_html=True,
@@ -280,22 +281,26 @@ def main():
                 st.markdown(
                     f"""
                 <div class="metric-card">
-                    <div class="metric-label">⚠️ Contradictions</div>
-                    <div class="score-display">{result['contradictions']['score']}/10</div>
+                    <div class="metric-label">🔄 Context</div>
+                    <div class="score-display">{result['context']['score']}/10</div>
                 </div>
                 """,
                     unsafe_allow_html=True,
                 )
 
-                # Calculate overall score (weighted average)
-                overall_score = (
-                    (11 - result["ambiguity"]["score"])
-                    * 0.4  # Invert ambiguity (lower is better)
-                    + (11 - result["contradictions"]["score"])
-                    * 0.4  # Invert contradictions (lower is better)
-                    + result["context"]["score"]
-                    * 0.2  # Keep context as is (higher is better)
+                st.markdown(
+                    f"""
+                <div class="metric-card">
+                    <div class="metric-label">📝 Grammar</div>
+                    <div class="score-display">{result['grammar']['score']}/10</div>
+                </div>
+                """,
+                    unsafe_allow_html=True,
                 )
+
+            with col_c:
+                # Calculate overall score (weighted average)
+                overall_score = result["overall_score"]
 
                 st.markdown(
                     f"""
@@ -331,7 +336,7 @@ def main():
         )
 
         # Detailed explanations
-        col1, col2, col3 = st.columns(3)
+        col1, col2, col3, col4 = st.columns(4)
 
         with col1:
             st.subheader("🎯 Ambiguity Analysis")
@@ -364,6 +369,18 @@ def main():
             <div class="explanation-box">
                 <strong>Score: {result['context']['score']}/10</strong><br>
                 {result['context']['explanation']}
+            </div>
+            """,
+                unsafe_allow_html=True,
+            )
+
+        with col4:
+            st.subheader("📝 Grammar Analysis")
+            st.markdown(
+                f"""
+            <div class="explanation-box">
+                <strong>Score: {result['grammar']['score']}/10</strong><br>
+                {result['grammar']['explanation']}
             </div>
             """,
                 unsafe_allow_html=True,

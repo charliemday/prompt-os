@@ -20,20 +20,18 @@ Access Playground: https://prompt-os-kt5fvqpe7ydshb5er2isht.streamlit.app/
    cd prompt-os
    ```
 
-2. **Install dependencies and CLI**:
+2. **Install dependencies**:
 
    **Using Poetry (recommended)**:
 
    ```bash
    poetry install
-   poetry run pip install -e .
    ```
 
    **Using pip**:
 
    ```bash
    pip install -r requirements.txt
-   pip install -e .
    ```
 
 3. **Set up your OpenAI API key**:
@@ -53,22 +51,24 @@ Access Playground: https://prompt-os-kt5fvqpe7ydshb5er2isht.streamlit.app/
 
 ### Command Line Interface
 
+**Note**: The CLI must be run using Poetry's virtual environment to ensure all dependencies are available.
+
 **Grade a prompt**:
 
 ```bash
-prompt-os "Write a story about a cat"
+poetry run python -m prompt_os "Write a story about a cat"
 ```
 
 **Grade with explicit flag**:
 
 ```bash
-prompt-os "Write a story about a cat" --grade
+poetry run python -m prompt_os "Write a story about a cat" --grade
 ```
 
 **Use different model**:
 
 ```bash
-prompt-os "Write a story about a cat" --model gpt-4
+poetry run python -m prompt_os "Write a story about a cat" --model gpt-4
 ```
 
 **Available options**:

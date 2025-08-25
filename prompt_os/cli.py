@@ -71,20 +71,27 @@ Examples:
 
             print("📈 SCORES (1-10 scale):")
             print(
-                f"  Ambiguity (10 is high ambiguity): {result['ambiguity']['score']}/10"
+                f"  Ambiguity (10 is high amount of ambiguity): {result['ambiguity']['score']}/10"
             )
             print(
-                f"  Contradictions (10 is high contradictions): {result['contradictions']['score']}/10"
+                f"  Contradictions (10 is high number contradictions): {result['contradictions']['score']}/10"
             )
-            print(f"  Context (10 is lots of context): {result['context']['score']}/10")
+            print(
+                f"  Lack of Context (10 is a complete lack of context): {result['context']['score']}/10"
+            )
+            print(
+                f"  Grammar (10 is very poor grammar): {result['grammar']['score']}/10"
+            )
             print()
 
             print("📝 EXPLANATIONS:")
             print(f"  Ambiguity: {result['ambiguity']['explanation']}")
             print(f"  Contradictions: {result['contradictions']['explanation']}")
             print(f"  Context: {result['context']['explanation']}")
+            print(f"  Grammar: {result['grammar']['explanation']}")
             print()
 
+            print(f"  Overall score: {result['overall_score']}/10")
             print("🎯 OVERALL ASSESSMENT:")
             print(f"  {result['overall_assessment']}")
             print()
